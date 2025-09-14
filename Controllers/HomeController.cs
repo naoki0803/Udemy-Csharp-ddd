@@ -10,6 +10,11 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly string ConnectionString = @"Data Source=/Users/shiratorinaoki/DataBase/sqlite/Udemy-DDD-Part1.db";
+    public string RoundString(float value, int decimalPoint)
+    {
+        var temp = Convert.ToSingle(Math.Round(value, decimalPoint));
+        return temp.ToString("F" + decimalPoint);
+    }
 
     public HomeController(ILogger<HomeController> logger)
     {
@@ -35,7 +40,7 @@ public class HomeController : Controller
                     {
                         ViewData["datadate"] = reader["datadate"]?.ToString() ?? "データなし";
                         ViewData["condition"] = reader["Condition"]?.ToString() ?? "データなし";
-                        ViewData["temperature"] = reader["Temperature"]?.ToString() ?? "データなし";
+                        ViewData["temperature"] = RoundString(Convert.ToSingle(reader["Temperature"]?.ToString()), 2) + "℃" ?? "データなし";
                     }
                     else
                     {
