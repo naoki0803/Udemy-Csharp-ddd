@@ -3,6 +3,26 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Whaher</h1>
+</div>
+
+
+<div>
+    <label for="area">地域</label>
+    <input type="text" id="area" />
+    <button id="search">直近地</button>
+</div>
+<div>
+    <div>
+        <label for="datetime">日時</label>
+        <span id="datetime">@ViewData["datadate"]</span>
+    </div>
+    <div>
+        <label for="condition">状態</label>
+        <span id="condition">@ViewData["condition"]</span>
+    </div>
+    <div>
+        <label for="temperature">湿度</label>
+        <span id="temperature">@ViewData["temperature"]</span>
+    </div>
 </div>
