@@ -1,4 +1,5 @@
-﻿@{
+﻿@model System.Data.DataTable
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -14,16 +15,36 @@
     </div>
 </form>
 <div>
-    <div>
-        <label for="datetime">日時</label>
-        <span id="datetime">@ViewData["datadate"]</span>
-    </div>
-    <div>
-        <label for="condition">状態</label>
-        <span id="condition">@ViewData["condition"]</span>
-    </div>
-    <div>
-        <label for="temperature">湿度</label>
-        <span id="temperature">@ViewData["temperature"]</span>
-    </div>
+    @if (Model != null && Model.Rows.Count > 0)
+    {
+        var row = Model.Rows[0];
+
+        <div>
+            <label for="datetime">日時</label>
+            <span id="datetime">@(row["DataDate"]?.ToString() ?? "データなし")</span>
+        </div>
+        <div>
+            <label for="condition">状態</label>
+            <span id="condition">@(row["condition"]?.ToString() ?? "データなし")</span>
+        </div>
+        <div>
+            <label for="temperature">湿度</label>
+            <span id="temperature">@(row["temperature"]?.ToString() ?? "データなし")</span>
+        </div>
+    }
+    else
+    {
+        <div>
+            <label for="datetime">日時</label>
+            <span id="datetime">データなし</span>
+        </div>
+        <div>
+            <label for="condition">状態</label>
+            <span id="condition">データなし</span>
+        </div>
+        <div>
+            <label for="temperature">温度</label>
+            <span id="temperature">データなし</span>
+        </div>
+    }
 </div>
