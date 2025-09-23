@@ -1,7 +1,14 @@
+using DDD.WinForm.Repositories;
+using DDD.WinForm.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// DI登録
+builder.Services.AddScoped<IWeatherRepository, WeatherRepository>();
+builder.Services.AddScoped<HomeViewModel>();
 
 var app = builder.Build();
 
