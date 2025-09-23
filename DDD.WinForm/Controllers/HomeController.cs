@@ -3,22 +3,26 @@ using Microsoft.AspNetCore.Mvc;
 using DDD.WinForm.Models;
 using DDD.WinForm.Common;
 using System.Data;
+using DDD.WinForm.Repositories;
 
 namespace DDD.WinForm.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private IWeatherRepository _weatherService;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IWeatherRepository weatherService)
     {
         _logger = logger;
+        _weatherService = weatherService;
     }
 
-    public IActionResult Index(int areaId = 1)
+    public IActionResult Index(int areaId)
     {
-        var dt = Data.WeatherSqlite.GetLatest(Convert.ToInt32(areaId));
-        return View(dt);
+        var viewModel = new HomeViewModel(_weatherService);
+        viewModel.Search(areaId.ToString());
+        return View(viewModel);
     }
 
     public IActionResult Privacy()
