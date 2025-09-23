@@ -1,4 +1,5 @@
-﻿@model System.Data.DataTable
+﻿@using DDD.WinForm.Common
+@model DDD.WinForm.Models.HomeViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -15,36 +16,16 @@
     </div>
 </form>
 <div>
-    @if (Model != null && Model.Rows.Count > 0)
-    {
-        var row = Model.Rows[0];
-
-        <div>
-            <label for="datetime">日時</label>
-            <span id="datetime">@(row["DataDate"]?.ToString() ?? "データなし")</span>
-        </div>
-        <div>
-            <label for="condition">状態</label>
-            <span id="condition">@(row["condition"]?.ToString() ?? "データなし")</span>
-        </div>
-        <div>
-            <label for="temperature">湿度</label>
-            <span id="temperature">@(row["temperature"]?.ToString() ?? "データなし")</span>
-        </div>
-    }
-    else
-    {
-        <div>
-            <label for="datetime">日時</label>
-            <span id="datetime">データなし</span>
-        </div>
-        <div>
-            <label for="condition">状態</label>
-            <span id="condition">データなし</span>
-        </div>
-        <div>
-            <label for="temperature">温度</label>
-            <span id="temperature">データなし</span>
-        </div>
-    }
+    <div>
+        <label for="datetime">日時</label>
+        <span id="datetime">@Model.DataDate</span>
+    </div>
+    <div>
+        <label for="condition">状態</label>
+        <span id="condition">@Model.Condition</span>
+    </div>
+    <div>
+        <label for="temperature">温度</label>
+        <span id="temperature">@Model.Temperature</span>
+    </div>
 </div>
