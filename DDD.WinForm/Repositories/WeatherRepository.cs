@@ -1,6 +1,7 @@
 using System.Data;
+using DDD.Domain.Repositories;
+using DDD.Shared.Constants;
 using Microsoft.Data.Sqlite;
-using DDD.WinForm.Common;
 
 namespace DDD.WinForm.Repositories;
 

@@ -1,9 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using DDD.WinForm.Models;
-using DDD.WinForm.Common;
-using System.Data;
-using DDD.WinForm.Repositories;
+using DDD.Domain.Repositories;
 
 namespace DDD.WinForm.Controllers;
 

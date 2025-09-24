@@ -1,9 +1,6 @@
-
-using System;
-using System.Data;
-using DDD.WinForm.Common;
-using DDD.WinForm.Repositories;
-using Microsoft.AspNetCore.Routing.Template;
+using DDD.Domain.Repositories;
+using DDD.Shared.Constants;
+using DDD.Shared.Extensions;
 
 namespace DDD.WinForm.Models;
 
@@ -32,7 +29,7 @@ public class HomeViewModel
             AreaId = areaId;
             DataDate = row["DataDate"]?.ToString() ?? "データなし";
             Condition = row["Condition"]?.ToString() ?? "データなし";
-            Temperature = CommonFunc.RoundString(Convert.ToSingle(row["Temperature"]?.ToString()),
+            Temperature = CommonFunc.RoundString(Convert.ToSingle(row["Temperature"]),
                             CommonConst.TemperatureDecimalPoint)
                             + " "
                             + CommonConst.TemperatureUnitName

@@ -18,6 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="../DDD.Domain/DDD.Domain.csproj" />
+    <ProjectReference Include="../DDD.Infrastructure/DDD.Infrastructure.csproj" />
     <ProjectReference Include="../DDD.WinForm/DDD.WinForm.csproj" />
   </ItemGroup>
 

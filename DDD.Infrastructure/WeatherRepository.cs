@@ -1,12 +1,13 @@
-﻿using System.Data;
-using DDD.Shared.Constants;
+using System.Data;
 using Microsoft.Data.Sqlite;
+using DDD.Domain.Repositories;
+using DDD.Shared.Constants;
 
-namespace DDD.WinForm.Data;
+namespace DDD.Infrastructure;
 
-public static class WeatherSqlite
+public class WeatherRepository : IWeatherRepository
 {
-    public static DataTable GetLatest(int areaId)
+    public DataTable GetLatest(int areaId)
     {
         string sql_ = @"SELECT * FROM Weather WHERE AreaId = @AreaId ORDER BY DataDate DESC LIMIT 1";
 

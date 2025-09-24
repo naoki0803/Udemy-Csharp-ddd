@@ -1,4 +1,5 @@
-using DDD.WinForm.Repositories;
+using DDD.Domain.Repositories;
+using DDD.Infrastructure;
 using DDD.WinForm.Models;
 
 var builder = WebApplication.CreateBuilder(args);

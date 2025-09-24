@@ -1,9 +1,9 @@
-using System;
-using System.Data;
+// using System;
+// using System.Data;
 
-namespace DDD.WinForm.Repositories;
+// namespace DDD.WinForm.Repositories;
 
-public interface IWeatherRepository
-{
-    DataTable GetLatest(int areaId);
-}
+// public interface IWeatherRepository
+// {
+//     DataTable GetLatest(int areaId);
+// }
