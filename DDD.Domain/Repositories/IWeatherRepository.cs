@@ -1,8 +1,8 @@
-using System.Data;
+using DDD.Domain.Entities;
 
 namespace DDD.Domain.Repositories;
 
 public interface IWeatherRepository
 {
-    DataTable GetLatest(int areaId);
+    WeatherEntity GetLatest(int areaId);
 }

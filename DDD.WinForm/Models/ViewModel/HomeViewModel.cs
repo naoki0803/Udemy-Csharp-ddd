@@ -18,18 +18,16 @@ public class HomeViewModel
     public string? Condition { get; set; } = string.Empty;
     public string? Temperature { get; set; } = string.Empty;
 
-    public HomeViewModel Search(string? areaId)
+    public void Search(string? areaId)
     {
-        var dt = _Weather.GetLatest(Convert.ToInt32(areaId));
+        var entity = _Weather.GetLatest(Convert.ToInt32(areaId));
 
-        if (dt.Rows.Count > 0)
+        if (entity != null)
         {
-            var row = dt.Rows[0];
-
-            AreaId = areaId;
-            DataDate = row["DataDate"]?.ToString() ?? "データなし";
-            Condition = row["Condition"]?.ToString() ?? "データなし";
-            Temperature = CommonFunc.RoundString(Convert.ToSingle(row["Temperature"]),
+            AreaId = entity.AreaId.ToString();
+            DataDate = entity.DataDate.ToString();
+            Condition = entity.Condition.ToString();
+            Temperature = CommonFunc.RoundString(Convert.ToSingle(entity.Temperature),
                             CommonConst.TemperatureDecimalPoint)
                             + " "
                             + CommonConst.TemperatureUnitName
@@ -38,11 +36,9 @@ public class HomeViewModel
         else
         {
             AreaId = areaId;
-            DataDate = "データなし";
-            Condition = "データなし";
-            Temperature = "データなし";
+            DataDate = null;
+            Condition = null;
+            Temperature = null;
         }
-
-        return this;
     }
 }

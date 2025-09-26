@@ -2,16 +2,16 @@ using System.Data;
 using Microsoft.Data.Sqlite;
 using DDD.Domain.Repositories;
 using DDD.Shared.Constants;
+using DDD.Domain.Entities;
 
 namespace DDD.Infrastructure;
 
 public class WeatherRepository : IWeatherRepository
 {
-    public DataTable GetLatest(int areaId)
+    public WeatherEntity GetLatest(int areaId)
     {
         string sql_ = @"SELECT * FROM Weather WHERE AreaId = @AreaId ORDER BY DataDate DESC LIMIT 1";
 
-        DataTable dt = new DataTable();
         try
         {
             using (var connection = new SqliteConnection(CommonConst.ConnectionString))
@@ -22,7 +22,14 @@ public class WeatherRepository : IWeatherRepository
 
                 using (var reader = command.ExecuteReader())
                 {
-                    dt.Load(reader);
+                    reader.Read();
+
+                    int dbAreaId = reader.GetInt32("AreaId");
+                    DateTime dbDataDate = reader.GetDateTime("DataDate");
+                    int dbCondition = reader.GetInt32("Condition");
+                    float dbTemperature = reader.GetFloat("Temperature");
+
+                    return new WeatherEntity(dbAreaId, dbDataDate, dbCondition, dbTemperature);
                 }
             }
         }
@@ -30,6 +37,5 @@ public class WeatherRepository : IWeatherRepository
         {
             throw new InvalidOperationException("データベース接続エラー", ex);
         }
-        return dt;
     }
 }
