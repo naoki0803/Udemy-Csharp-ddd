@@ -1,6 +1,8 @@
 using System.Data;
+using DDD.Domain.Entities;
 using DDD.Domain.Repositories;
 using DDD.WinForm.Models;
+using Microsoft.VisualBasic;
 
 namespace DDDTest.Tests;
 
@@ -30,23 +32,17 @@ public class HomeViewModelTest
     internal class WeatherMock : IWeatherRepository
     {
 
-        public DataTable GetLatest(int areaId)
+        public WeatherEntity GetLatest(int areaId)
         {
-            var dt = new DataTable();
+            return new WeatherEntity(2, Convert.ToDateTime("2025/09/22 15:22:33"), 5, 33.8f);
 
-            dt.Columns.Add("AreaId", typeof(int));
-            dt.Columns.Add("DataDate", typeof(DateTime));
-            dt.Columns.Add("Condition", typeof(int));
-            dt.Columns.Add("Temperature", typeof(float));
+            // newRow["AreaId"] = 2;
+            // newRow["DataDate"] = Convert.ToDateTime("2025/09/22 15:22:33");
+            // newRow["Condition"] = 5;
+            // newRow["Temperature"] = 33.8f;
 
-            var newRow = dt.NewRow();
-            newRow["AreaId"] = 2;
-            newRow["DataDate"] = Convert.ToDateTime("2025/09/22 15:22:33");
-            newRow["Condition"] = 5;
-            newRow["Temperature"] = 33.8f;
-
-            dt.Rows.Add(newRow);
-            return dt;
+            // dt.Rows.Add(newRow);
+            // return dt;
             // throw new NotImplementedException();
         }
     }
