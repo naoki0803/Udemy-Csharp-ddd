@@ -5,7 +5,7 @@ namespace DDD.Domain.ValueObjects;
 
 
 // 自動プロパティでTemperatureを実装
-public sealed class Temperature
+public sealed class Temperature : ValueObject<Temperature>
 {
     public const string UnitName = "℃";
     public const int DecimalPoint = 2;
@@ -24,25 +24,10 @@ public sealed class Temperature
                     + UnitName;
         }
     }
-    public override bool Equals(object? obj)
-    {
-        var vo = obj as Temperature;
-        if (vo == null)
-        {
-            return false;
-        }
 
-        return Value == vo.Value;
-    }
-
-    public static bool operator ==(Temperature vo1, Temperature vo2)
+    protected override bool EqualsCore(Temperature other)
     {
-        return Equals(vo1, vo2);
-    }
-
-    public static bool operator !=(Temperature vo1, Temperature vo2)
-    {
-        return !Equals(vo1, vo2);
+        return Value == other.Value;
     }
 }
 
