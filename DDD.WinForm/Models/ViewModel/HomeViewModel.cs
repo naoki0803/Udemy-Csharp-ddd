@@ -27,11 +27,7 @@ public class HomeViewModel
             AreaId = entity.AreaId.ToString();
             DataDate = entity.DataDate.ToString();
             Condition = entity.Condition.ToString();
-            Temperature = CommonFunc.RoundString(Convert.ToSingle(entity.Temperature),
-                            CommonConst.TemperatureDecimalPoint)
-                            + " "
-                            + CommonConst.TemperatureUnitName
-                            ?? "データなし";
+            Temperature = entity.Temperature.DisplayValue;
         }
         else
         {

@@ -1,3 +1,5 @@
+using DDD.Domain.ValueObjects;
+
 namespace DDD.Domain.Entities;
 
 public sealed class WeatherEntity
@@ -7,11 +9,11 @@ public sealed class WeatherEntity
         AreaId = areaId;
         DataDate = dataDate;
         Condition = condition;
-        Temperature = temperature;
+        Temperature = new Temperature(temperature);
     }
 
     public int AreaId { get; }
     public DateTime DataDate { get; }
     public int Condition { get; }
-    public float Temperature { get; }
+    public Temperature Temperature { get; }
 }
