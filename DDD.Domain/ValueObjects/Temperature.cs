@@ -20,9 +20,10 @@ public sealed class Temperature : ValueObject<Temperature>
     {
         get
         {
-            return FloatHelper.RoundString(Value, DecimalPoint)
-                    + " "
-                    + UnitName;
+            return Value.RoundString(DecimalPoint) + " " + UnitName;  // FloatHelper拡張メソッド
+            // return FloatHelper.RoundString(Value, DecimalPoint)
+            //         + " "
+            //         + UnitName;
         }
     }
 
