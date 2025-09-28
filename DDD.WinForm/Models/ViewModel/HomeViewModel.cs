@@ -1,6 +1,4 @@
 using DDD.Domain.Repositories;
-using DDD.Shared.Constants;
-using DDD.Shared.Extensions;
 
 namespace DDD.WinForm.Models;
 
