@@ -21,7 +21,7 @@ public class WeatherRepository : IWeatherRepository
 
                 using (var reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    if (reader.Read())
                     {
 
                         int dbAreaId = reader.GetInt32("AreaId");

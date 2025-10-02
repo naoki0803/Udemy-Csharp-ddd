@@ -30,9 +30,9 @@ public class HomeViewModel
         else
         {
             AreaId = areaId;
-            DataDate = null;
-            Condition = null;
-            Temperature = null;
+            DataDate = "データがありません";
+            Condition = "データがありません";
+            Temperature = "データがありません";
         }
     }
 }
