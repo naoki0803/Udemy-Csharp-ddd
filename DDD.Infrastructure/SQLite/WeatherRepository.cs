@@ -1,10 +1,9 @@
 using System.Data;
 using Microsoft.Data.Sqlite;
 using DDD.Domain.Repositories;
-using DDD.Shared.Constants;
 using DDD.Domain.Entities;
 
-namespace DDD.Infrastructure;
+namespace DDD.Infrastructure.SQLite;
 
 public class WeatherRepository : IWeatherRepository
 {
@@ -14,7 +13,7 @@ public class WeatherRepository : IWeatherRepository
 
         try
         {
-            using (var connection = new SqliteConnection(CommonConst.ConnectionString))
+            using (var connection = new SqliteConnection(SQLiteHelper.ConnectionString))
             using (var command = new SqliteCommand(sql_, connection))
             {
                 connection.Open();
@@ -22,16 +21,19 @@ public class WeatherRepository : IWeatherRepository
 
                 using (var reader = command.ExecuteReader())
                 {
-                    reader.Read();
+                    while (reader.Read())
+                    {
 
-                    int dbAreaId = reader.GetInt32("AreaId");
-                    DateTime dbDataDate = reader.GetDateTime("DataDate");
-                    int dbCondition = reader.GetInt32("Condition");
-                    float dbTemperature = reader.GetFloat("Temperature");
+                        int dbAreaId = reader.GetInt32("AreaId");
+                        DateTime dbDataDate = reader.GetDateTime("DataDate");
+                        int dbCondition = reader.GetInt32("Condition");
+                        float dbTemperature = reader.GetFloat("Temperature");
 
-                    return new WeatherEntity(dbAreaId, dbDataDate, dbCondition, dbTemperature);
+                        return new WeatherEntity(dbAreaId, dbDataDate, dbCondition, dbTemperature);
+                    }
                 }
             }
+            return null;
         }
         catch (Exception ex)
         {

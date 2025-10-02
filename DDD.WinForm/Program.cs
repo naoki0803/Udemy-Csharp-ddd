@@ -1,5 +1,5 @@
 using DDD.Domain.Repositories;
-using DDD.Infrastructure;
+using DDD.Infrastructure.SQLite;
 using DDD.WinForm.Models;
 
 var builder = WebApplication.CreateBuilder(args);
