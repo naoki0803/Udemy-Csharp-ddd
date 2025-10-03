@@ -7,7 +7,7 @@ namespace DDD.Infrastructure.SQLite;
 
 public class WeatherRepository : IWeatherRepository
 {
-    public WeatherEntity GetLatest(int areaId)
+    public WeatherEntity? GetLatest(int areaId)
     {
         string sql_ = @"SELECT * FROM Weather WHERE AreaId = @AreaId ORDER BY DataDate DESC LIMIT 1";
 
