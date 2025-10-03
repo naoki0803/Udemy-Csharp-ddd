@@ -1,6 +1,7 @@
 using DDD.Domain.Entities;
 using DDD.Domain.Repositories;
 using DDD.WinForm.Models;
+using Moq;
 
 namespace DDDTest.Tests;
 
@@ -43,5 +44,26 @@ public class HomeViewModelTest
             // return dt;
             // throw new NotImplementedException();
         }
+    }
+
+    [TestMethod]
+    public void Moqを用いたテスト()
+    {
+        var weatherMock = new Mock<IWeatherRepository>();
+        var viewModel = new HomeViewModel(weatherMock.Object);
+        weatherMock.Setup(x => x.GetLatest(2)).Returns(new WeatherEntity(2, Convert.ToDateTime("2025/09/22 15:22:33"), 2, 33.8f));
+
+        Assert.AreEqual("", viewModel.AreaId);
+        Assert.AreEqual("", viewModel.DataDate);
+        Assert.AreEqual("", viewModel.Condition);
+        Assert.AreEqual("", viewModel.Temperature);
+
+        viewModel.AreaId = "2";
+        viewModel.Search(viewModel.AreaId);
+
+        Assert.AreEqual("2", viewModel.AreaId);
+        Assert.AreEqual("2025/09/22 15:22:33", viewModel.DataDate);
+        Assert.AreEqual("曇り", viewModel.Condition);
+        Assert.AreEqual("33.80 ℃", viewModel.Temperature);
     }
 }
