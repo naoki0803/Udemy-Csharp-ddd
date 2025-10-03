@@ -1,8 +1,6 @@
-using System.Data;
 using DDD.Domain.Entities;
 using DDD.Domain.Repositories;
 using DDD.WinForm.Models;
-using Microsoft.VisualBasic;
 
 namespace DDDTest.Tests;
 

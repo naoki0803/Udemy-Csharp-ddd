@@ -1,8 +1,6 @@
 using DDD.Domain.Helpers;
 
-
 namespace DDD.Domain.ValueObjects;
-
 
 // 自動プロパティでTemperatureを実装
 public sealed class Temperature : ValueObject<Temperature>

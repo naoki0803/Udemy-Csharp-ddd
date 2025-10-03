@@ -1,5 +1,4 @@
 using DDD.Domain.ValueObjects;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Company.TestProject1;
 
