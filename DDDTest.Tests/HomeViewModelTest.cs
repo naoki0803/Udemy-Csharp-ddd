@@ -22,7 +22,7 @@ public class HomeViewModelTest
 
             Assert.AreEqual("2", viewModel.AreaId);
             Assert.AreEqual("2025/09/22 15:22:33", viewModel.DataDate);
-            Assert.AreEqual("5", viewModel.Condition);
+            Assert.AreEqual("曇り", viewModel.Condition);
             Assert.AreEqual("33.80 ℃", viewModel.Temperature);
         }
     }
@@ -32,7 +32,7 @@ public class HomeViewModelTest
 
         public WeatherEntity GetLatest(int areaId)
         {
-            return new WeatherEntity(2, Convert.ToDateTime("2025/09/22 15:22:33"), 5, 33.8f);
+            return new WeatherEntity(2, Convert.ToDateTime("2025/09/22 15:22:33"), 2, 33.8f);
 
             // newRow["AreaId"] = 2;
             // newRow["DataDate"] = Convert.ToDateTime("2025/09/22 15:22:33");

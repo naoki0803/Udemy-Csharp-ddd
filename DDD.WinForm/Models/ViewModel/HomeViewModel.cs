@@ -24,7 +24,7 @@ public class HomeViewModel
         {
             AreaId = entity.AreaId.ToString();
             DataDate = entity.DataDate.ToString();
-            Condition = entity.Condition.ToString();
+            Condition = entity.Condition.DisplayValue;
             Temperature = entity.Temperature.DisplayValue;
         }
         else
