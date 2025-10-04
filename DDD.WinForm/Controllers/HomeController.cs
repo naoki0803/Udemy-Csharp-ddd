@@ -9,16 +9,17 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private IWeatherRepository _weatherService;
-
-    public HomeController(ILogger<HomeController> logger, IWeatherRepository weatherService)
+    private IAreaRepository _areaService;
+    public HomeController(ILogger<HomeController> logger, IWeatherRepository weatherService, IAreaRepository areaService)
     {
         _logger = logger;
         _weatherService = weatherService;
+        _areaService = areaService;
     }
 
     public IActionResult Index(int areaId)
     {
-        var viewModel = new HomeViewModel(_weatherService);
+        var viewModel = new HomeViewModel(_weatherService, _areaService);
         viewModel.Search(areaId.ToString());
         return View(viewModel);
     }

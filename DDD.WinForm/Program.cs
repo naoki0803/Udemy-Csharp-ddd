@@ -9,6 +9,7 @@ builder.Services.AddControllersWithViews();
 
 // DI登録
 builder.Services.AddScoped<IWeatherRepository, WeatherRepository>();
+builder.Services.AddScoped<IAreaRepository, AreaRepository>();
 builder.Services.AddScoped<HomeViewModel>();
 
 var app = builder.Build();
