@@ -52,6 +52,7 @@ public class HomeViewModelTest
         var weatherMock = new Mock<IWeatherRepository>();
         var viewModel = new HomeViewModel(weatherMock.Object);
         weatherMock.Setup(x => x.GetLatest(2)).Returns(new WeatherEntity(2, Convert.ToDateTime("2025/09/22 15:22:33"), 2, 33.8f));
+        weatherMock.Setup(x => x.GetLatest(1)).Returns(new WeatherEntity(1, Convert.ToDateTime("2045/08/01 11:02:11"), 1, 29.81f));
 
         Assert.AreEqual("", viewModel.AreaId);
         Assert.AreEqual("", viewModel.DataDate);
@@ -65,5 +66,13 @@ public class HomeViewModelTest
         Assert.AreEqual("2025/09/22 15:22:33", viewModel.DataDate);
         Assert.AreEqual("曇り", viewModel.Condition);
         Assert.AreEqual("33.80 ℃", viewModel.Temperature);
+
+        viewModel.AreaId = "1";
+        viewModel.Search(viewModel.AreaId);
+
+        Assert.AreEqual("1", viewModel.AreaId);
+        Assert.AreEqual("2045/08/01 11:02:11", viewModel.DataDate);
+        Assert.AreEqual("晴れ", viewModel.Condition);
+        Assert.AreEqual("29.81 ℃", viewModel.Temperature);
     }
 }
