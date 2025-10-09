@@ -13,7 +13,7 @@ public abstract class ValueObject<T> where T : ValueObject<T>
         return EqualsCore(vo);
     }
 
-    public static bool operator ==(ValueObject<T> vo1, ValueObject<T> vo2)
+    public static bool operator ==(ValueObject<T>? vo1, ValueObject<T>? vo2)
     {
         return Equals(vo1, vo2);
     }

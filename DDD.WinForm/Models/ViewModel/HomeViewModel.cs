@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using DDD.Domain.Entities;
 using DDD.Domain.Repositories;
 
@@ -6,45 +5,42 @@ namespace DDD.WinForm.Models;
 
 public class HomeViewModel
 {
-    private IWeatherRepository _weather;
-    private IAreaRepository _areas;
+    private readonly IWeatherRepository _weather;
+    private readonly IAreaRepository _areas;
 
     public HomeViewModel(IWeatherRepository Weather, IAreaRepository areas)
     {
-        this._weather = Weather;
-        this._areas = areas;
+        _weather = Weather;
+        _areas = areas;
 
-        // Areas.Add(_areas.GetData().ToList);
-
-        foreach (var area in _areas.GetData())
-        {
-            Areas.Add(new AreaEntity(area.AreaId, area.AreaName));
-        }
+        // MVCでは読み取り専用リストとして公開
+        Areas = _areas.GetData();
     }
 
-    public string? AreaId { get; set; } = string.Empty;
-    public string? DataDate { get; set; } = string.Empty;
-    public string? Condition { get; set; } = string.Empty;
-    public string? Temperature { get; set; } = string.Empty;
-    public BindingList<AreaEntity> Areas { get; set; }
-    = new BindingList<AreaEntity>();
+    public string? SelectedAreaIdText { get; set; } = string.Empty;
+    public string? DataDateText { get; set; } = string.Empty;
+    public string? ConditionText { get; set; } = string.Empty;
+    public string? TemperatureText { get; set; } = string.Empty;
+    // MVCでは読み取り専用で十分
+    public IReadOnlyList<AreaEntity> Areas { get; private set; }
+
     public void Search(string? areaId)
     {
-        var entity = _weather.GetLatest(Convert.ToInt32(areaId));
+        WeatherEntity? entity = _weather.GetLatest(Convert.ToInt32(areaId));
 
-        if (entity != null)
+        if (entity == null)
         {
-            AreaId = entity.AreaId.ToString();
-            DataDate = entity.DataDate.ToString();
-            Condition = entity.Condition.DisplayValue;
-            Temperature = entity.Temperature.DisplayValue;
+            SelectedAreaIdText = areaId;
+            DataDateText = null;
+            ConditionText = null;
+            TemperatureText = null;
         }
         else
         {
-            AreaId = areaId;
-            DataDate = "データがありません";
-            Condition = "データがありません";
-            Temperature = "データがありません";
+            SelectedAreaIdText = entity?.AreaId.ToString();
+            DataDateText = entity?.DataDate.ToString();
+            ConditionText = entity?.Condition.DisplayValue;
+            TemperatureText = entity?.Temperature.DisplayValue;
         }
     }
 }

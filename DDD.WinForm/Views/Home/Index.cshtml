@@ -10,21 +10,33 @@
 <form method="get" action="@Url.Action("Index", "Home")">
     <div>
         <label for="areaId">地域ID</label>
-        <input type="number" id="areaId" name="areaId" value="@Context.Request.Query["areaId"]" />
+        <select id="areaId" name="areaId" value="@Model.SelectedAreaIdText">
+            @foreach (var area in Model.Areas)
+            {
+                @if (area.AreaId == Convert.ToInt32(Model.SelectedAreaIdText))
+                {
+                    <option value="@area.AreaId" selected>@area.AreaName</option>
+                }
+                else
+                {
+                    <option value="@area.AreaId">@area.AreaName</option>
+                }
+            }
+        </select>
         <button type="submit">検索</button>
     </div>
 </form>
 <div>
     <div>
         <label for="datetime">日時</label>
-        <span id="datetime">@Model.DataDate</span>
+        <span id="datetime">@Model.DataDateText</span>
     </div>
     <div>
         <label for="condition">状態</label>
-        <span id="condition">@Model.Condition</span>
+        <span id="condition">@Model.ConditionText</span>
     </div>
     <div>
         <label for="temperature">温度</label>
-        <span id="temperature">@Model.Temperature</span>
+        <span id="temperature">@Model.TemperatureText</span>
     </div>
 </div>

@@ -17,7 +17,7 @@ public class HomeController : Controller
         _areaService = areaService;
     }
 
-    public IActionResult Index(int areaId)
+    public IActionResult Index(int areaId = 1)
     {
         var viewModel = new HomeViewModel(_weatherService, _areaService);
         viewModel.Search(areaId.ToString());
