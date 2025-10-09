@@ -1,3 +1,5 @@
+using Microsoft.Data.Sqlite;
+
 namespace DDD.Infrastructure.SQLite;
 
 public static class SQLiteHelper
@@ -29,3 +31,29 @@ public static class SQLiteHelper
             throw new InvalidOperationException("データベース接続エラー", ex);
         }
     }
+
+    internal static T QuerySingle<T>(string sql, SqliteParameter[] parameters, Func<SqliteDataReader, T> createEntity, T nullEntity)
+    {
+        try
+        {
+            using (var connection = new SqliteConnection(ConnectionString))
+            using (var command = new SqliteCommand(sql, connection))
+            {
+                connection.Open();
+                command.Parameters.AddRange(parameters);
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        return createEntity(reader);
+                    }
+                }
+                return nullEntity;
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException("データベース接続エラー", ex);
+        }
+    }
+};

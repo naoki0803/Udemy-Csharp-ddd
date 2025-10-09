@@ -9,35 +9,16 @@ public class WeatherRepository : IWeatherRepository
 {
     public WeatherEntity? GetLatest(int areaId)
     {
-        string sql_ = @"SELECT * FROM Weather WHERE AreaId = @AreaId ORDER BY DataDate DESC LIMIT 1";
+        string sql = @"SELECT * FROM Weather WHERE AreaId = @AreaId ORDER BY DataDate DESC LIMIT 1";
 
-        try
+        return SQLiteHelper.QuerySingle(sql, new List<SqliteParameter> { new SqliteParameter("@AreaId", areaId) }.ToArray(), reader =>
         {
-            using (var connection = new SqliteConnection(SQLiteHelper.ConnectionString))
-            using (var command = new SqliteCommand(sql_, connection))
-            {
-                connection.Open();
-                command.Parameters.AddWithValue("@AreaId", areaId);
-
-                using (var reader = command.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-
-                        int dbAreaId = reader.GetInt32("AreaId");
-                        DateTime dbDataDate = reader.GetDateTime("DataDate");
-                        int dbCondition = reader.GetInt32("Condition");
-                        float dbTemperature = reader.GetFloat("Temperature");
-
-                        return new WeatherEntity(dbAreaId, dbDataDate, dbCondition, dbTemperature);
-                    }
-                }
-            }
-            return null;
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException("データベース接続エラー", ex);
-        }
+            return new WeatherEntity(
+                reader.GetInt32("AreaId"),
+                reader.GetDateTime("DataDate"),
+                reader.GetInt32("Condition"),
+                reader.GetFloat("Temperature")
+            );
+        }, null);
     }
 }
