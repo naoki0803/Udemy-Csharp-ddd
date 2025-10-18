@@ -7,6 +7,11 @@ namespace DDD.Infrastructure.SQLite;
 
 public class WeatherRepository : IWeatherRepository
 {
+    public IReadOnlyList<WeatherEntity> GetData()
+    {
+        throw new NotImplementedException();
+    }
+
     public WeatherEntity? GetLatest(int areaId)
     {
         string sql = @"SELECT * FROM Weather WHERE AreaId = @AreaId ORDER BY DataDate DESC LIMIT 1";

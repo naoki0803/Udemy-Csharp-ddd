@@ -30,6 +30,10 @@ public class HomeViewModelTest
 
     internal class WeatherMock : IWeatherRepository
     {
+        public IReadOnlyList<WeatherEntity> GetData()
+        {
+            throw new NotImplementedException();
+        }
 
         public WeatherEntity GetLatest(int areaId)
         {
