@@ -37,7 +37,7 @@ public class HomeViewModel
         }
         else
         {
-            SelectedAreaIdText = entity?.AreaId.ToString();
+            SelectedAreaIdText = entity?.AreaId.Value.ToString();
             DataDateText = entity?.DataDate.ToString();
             ConditionText = entity?.Condition.DisplayValue;
             TemperatureText = entity?.Temperature.DisplayValue;
