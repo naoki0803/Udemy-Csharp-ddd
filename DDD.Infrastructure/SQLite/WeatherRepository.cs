@@ -9,7 +9,22 @@ public class WeatherRepository : IWeatherRepository
 {
     public IReadOnlyList<WeatherEntity> GetData()
     {
-        throw new NotImplementedException();
+        string sql = @"
+        SELECT W.AreaId, A.AreaName, W.DataDate, W.Condition, W.Temperature 
+        FROM Weather w
+        INNER JOIN Areas A
+        ON w.AreaId = A.AreaID;";
+
+        return SQLiteHelper.Query(sql, reader =>
+        {
+            return new WeatherEntity(
+                reader.GetInt32("AreaId"),
+                reader.GetString("AreaName"),
+                reader.GetDateTime("DataDate"),
+                reader.GetInt32("Condition"),
+                reader.GetFloat("Temperature")
+            );
+        });
     }
 
     public WeatherEntity? GetLatest(int areaId)

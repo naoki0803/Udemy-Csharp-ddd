@@ -7,6 +7,10 @@
     <h1 class="display-4">Weather</h1>
 </div>
 
+<div class="mb-3">
+    <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="List">一覧表示へ</a>
+</div>
+
 <form method="get" action="@Url.Action("Index", "Home")">
     <div>
         <label for="areaId">地域ID</label>

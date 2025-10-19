@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using DDD.WinForm.Models;
+using DDD.WinForm.Models.ViewModel;
 using DDD.Domain.Repositories;
 
 namespace DDD.WinForm.Controllers;
@@ -21,6 +22,12 @@ public class HomeController : Controller
     {
         var viewModel = new HomeViewModel(_weatherService, _areaService);
         viewModel.Search(areaId.ToString());
+        return View(viewModel);
+    }
+
+    public IActionResult List()
+    {
+        var viewModel = new HomeListViewModel(_weatherService);
         return View(viewModel);
     }
 
