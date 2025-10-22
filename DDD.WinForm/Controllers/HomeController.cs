@@ -25,6 +25,14 @@ public class HomeController : Controller
         return View(viewModel);
     }
 
+    [HttpPost]
+    public IActionResult Save(int areaId, DateTime dataDate, int condition, float temperature)
+    {
+        var viewModel = new HomeViewModel(_weatherService, _areaService);
+        viewModel.Save(areaId, dataDate, condition, temperature);
+        return RedirectToAction("Index", new { areaId });
+    }
+
     public IActionResult List()
     {
         var viewModel = new HomeListViewModel(_weatherService);

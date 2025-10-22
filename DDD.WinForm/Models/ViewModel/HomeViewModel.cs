@@ -43,4 +43,10 @@ public class HomeViewModel
             TemperatureText = entity?.Temperature.DisplayValue;
         }
     }
+
+    public void Save(int areaId, DateTime dataDate, int condition, float temperature)
+    {
+        var entity = new WeatherEntity(areaId, dataDate, condition, temperature);
+        _weather.Save(entity);
+    }
 }

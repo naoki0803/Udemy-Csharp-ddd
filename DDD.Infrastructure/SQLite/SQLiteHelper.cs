@@ -56,4 +56,22 @@ public static class SQLiteHelper
             throw new InvalidOperationException("データベース接続エラー", ex);
         }
     }
+
+    internal static void Execute(string sql, SqliteParameter[] parameters)
+    {
+        try
+        {
+            using (var connection = new SqliteConnection(ConnectionString))
+            using (var command = new SqliteCommand(sql, connection))
+            {
+                connection.Open();
+                command.Parameters.AddRange(parameters);
+                command.ExecuteNonQuery();
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException("データベース接続エラー", ex);
+        }
+    }
 };

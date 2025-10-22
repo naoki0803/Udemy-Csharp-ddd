@@ -44,3 +44,33 @@
         <span id="temperature">@Model.TemperatureText</span>
     </div>
 </div>
+
+<h2 class="mt-4">新規データ登録</h2>
+<form method="post" action="@Url.Action("Save", "Home")">
+    <div class="mb-3">
+        <label for="saveAreaId">地域ID</label>
+        <select id="saveAreaId" name="areaId" class="form-control">
+            @foreach (var area in Model.Areas)
+            {
+                <option value="@area.AreaId">@area.AreaName</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="saveDataDate">日時</label>
+        <input type="datetime-local" id="saveDataDate" name="dataDate" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="saveCondition">状態</label>
+        <select id="saveCondition" name="condition" class="form-control">
+            <option value="1">晴れ</option>
+            <option value="2">曇り</option>
+            <option value="3">雨</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="saveTemperature">温度</label>
+        <input type="number" step="0.01" id="saveTemperature" name="temperature" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-success">保存</button>
+</form>

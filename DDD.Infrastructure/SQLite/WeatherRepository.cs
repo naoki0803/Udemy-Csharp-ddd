@@ -41,4 +41,19 @@ public class WeatherRepository : IWeatherRepository
             );
         }, null);
     }
+
+    public void Save(WeatherEntity entity)
+    {
+        string sql = @"INSERT INTO Weather (AreaId, DataDate, Condition, Temperature) VALUES (@AreaId, @DataDate, @Condition, @Temperature)";
+
+        var parameters = new SqliteParameter[]
+        {
+            new SqliteParameter("@AreaId", entity.AreaId.Value),
+            new SqliteParameter("@DataDate", entity.DataDate),
+            new SqliteParameter("@Condition", entity.Condition.Value),
+            new SqliteParameter("@Temperature", entity.Temperature.Value)
+        };
+
+        SQLiteHelper.Execute(sql, parameters);
+    }
 }

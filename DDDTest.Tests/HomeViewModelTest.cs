@@ -48,6 +48,11 @@ public class HomeViewModelTest
             // return dt;
             // throw new NotImplementedException();
         }
+
+        public void Save(WeatherEntity entity)
+        {
+            // モックなので何もしない
+        }
     }
 
     [TestMethod]
