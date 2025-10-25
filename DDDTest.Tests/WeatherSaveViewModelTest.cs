@@ -35,6 +35,7 @@ public class WeatherSaveViewModelTest
         Assert.AreEqual("", viewModel.TemperatureTextText);
         Assert.AreEqual(2, viewModel.Areas.Count);
         Assert.AreEqual(4, viewModel.Conditions.Count);
+        Assert.AreEqual("℃", viewModel.TemperatureUnitName);
 
 
 
