@@ -45,4 +45,11 @@ public sealed class Condition : ValueObject<Condition>
     {
         return Value == other.Value;
     }
+
+    public static List<Condition> ToList()
+    {
+        return new List<Condition>{
+            None, Sunny, Cloudy, Rain
+        };
+    }
 }

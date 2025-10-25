@@ -41,4 +41,9 @@ public class WeatherRepository : IWeatherRepository
             );
         }, null);
     }
+
+    public void Save(WeatherEntity weather)
+    {
+        throw new NotImplementedException();
+    }
 }
