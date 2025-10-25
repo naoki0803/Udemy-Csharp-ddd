@@ -1,40 +1,51 @@
 using DDD.Domain;
 using DDD.Domain.Entities;
 using DDD.Domain.Repositories;
+using DDD.Domain.ValueObjects;
 
 
 namespace DDD.WinForm.Models.ViewModel;
 
 public class WeatherSaveViewModel
 {
-    private readonly IWeatherRepository _weather;
-    private readonly IAreaRepository _areas;
+    private IWeatherRepository? _weather;
+    private IAreaRepository? _areas;
 
-    public WeatherSaveViewModel(IWeatherRepository weather, IAreaRepository areas)
+    // 引数なしコンストラクター（モデルバインディング用）
+    public WeatherSaveViewModel()
     {
-        _weather = weather;
-        _areas = areas;
-
+        // SelectedAreaId = string.Empty;
         DataDateValue = GetDateTime();
         SelectedCondition = Condition.Sunny.Value;
         TemperatureTextText = string.Empty;
-
-        Areas = _areas.GetData();
+        Areas = new List<AreaEntity>();
     }
-    public object SelectedAreaId { get; set; }
+
+    // 引数ありコンストラクター（DI用）
+    public WeatherSaveViewModel(IWeatherRepository weather, IAreaRepository areas) : this()
+    {
+        Initialize(weather, areas);
+    }
+
+    public object? SelectedAreaId { get; set; }
     public DateTime DataDateValue { get; set; }
     public object SelectedCondition { get; set; }
     public string? TemperatureTextText { get; set; }
-    public IReadOnlyList<AreaEntity> Areas { get; private set; }
-
-    public IReadOnlyList<Condition> Conditions { get; private set; }
-    = Condition.ToList();
+    public string TemperatureUnitName => Temperature.UnitName;
+    public IReadOnlyList<AreaEntity> Areas { get; set; }
+    public IReadOnlyList<Condition> Conditions { get; set; } = Condition.ToList();
 
     public virtual DateTime GetDateTime()
     {
         return DateTime.Now;
     }
-
+    // POSTで失われた選択肢を再設定するメソッド
+    public void Initialize(IWeatherRepository weather, IAreaRepository areas)
+    {
+        _weather = weather;
+        _areas = areas;
+        Areas = _areas.GetData();
+    }
     public void Save()
     {
         Guard.IsNull(SelectedAreaId, "AreaIdを選択してください。");
@@ -52,7 +63,7 @@ public class WeatherSaveViewModel
                 Convert.ToInt32(SelectedCondition),
                 temperature
             );
-        _weather.Save(entity);
+        _weather!.Save(entity);
 
     }
 }
