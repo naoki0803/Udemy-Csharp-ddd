@@ -1,0 +1,44 @@
+﻿@model DDD.WinForm.Models.ViewModel.WeatherSaveViewModel
+@{
+    ViewData["Title"] = "天気保存";
+}
+<div class="text-center">
+    <h1 class="display-4">データ登録</h1>
+</div>
+
+<div class="mb-3">
+    <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Index">詳細検索へ</a>
+</div>
+
+<form method="post" action="@Url.Action("Save", "Home")">
+    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+    <div class="mb-3">
+        <label for="saveAreaId">地域ID</label>
+        <select id="saveAreaId" name="SelectedAreaId" class="form-control">
+            @foreach (var area in Model.Areas)
+            {
+                <option value="@area.AreaId">@area.AreaName</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="saveDataDate">日時</label>
+        <input type="datetime-local" id="saveDataDate" name="DataDateValue" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="saveCondition">状態</label>
+        <select id="saveCondition" name="SelectedCondition" class="form-control">
+            @foreach (var condition in Model.Conditions)
+            {
+                <option value="@condition.Value.ToString()">@condition.DisplayValue</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="saveTemperature">温度</label>
+        <input type="text" id="saveTemperature" name="temperatureTextText" class="form-control" required />
+        <span>@Model.TemperatureUnitName</span>
+    </div>
+
+    <button type="submit" class="btn btn-success">保存</button>
+</form>

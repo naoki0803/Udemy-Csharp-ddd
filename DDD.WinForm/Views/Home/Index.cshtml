@@ -11,6 +11,10 @@
     <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="List">一覧表示へ</a>
 </div>
 
+<div class="mb-3">
+    <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Save">データ登録</a>
+</div>
+
 <form method="get" action="@Url.Action("Index", "Home")">
     <div>
         <label for="areaId">地域ID</label>

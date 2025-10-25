@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using DDD.WinForm.Models;
 using DDD.WinForm.Models.ViewModel;
 using DDD.Domain.Repositories;
+using DDD.Domain.Exceptions;
 
 namespace DDD.WinForm.Controllers;
 
@@ -30,7 +31,34 @@ public class HomeController : Controller
         var viewModel = new HomeListViewModel(_weatherService);
         return View(viewModel);
     }
+    // 天気登録画面
+    [HttpGet]
+    public IActionResult Save()
+    {
+        var viewModel = new WeatherSaveViewModel(_weatherService, _areaService);
+        return View(viewModel);
+    }
+    // 天気登録処理
+    [HttpPost]
+    public IActionResult Save(WeatherSaveViewModel viewModel)
+    {
+        try
+        {
+            viewModel.Initialize(_weatherService, _areaService);
+            viewModel.Save();
+            return RedirectToAction("Index");
+        }
+        catch (InputException ex)
+        {
+            // エラーメッセージをModelStateに追加
+            ModelState.AddModelError(string.Empty, ex.Message);
 
+            // 選択肢を再設定（POSTで失われるため）
+            viewModel.Initialize(_weatherService, _areaService);
+
+            return View(viewModel);
+        }
+    }
     public IActionResult Privacy()
     {
         return View();
