@@ -1,3 +1,4 @@
+using DDD.Domain.Entities;
 using Microsoft.Data.Sqlite;
 
 namespace DDD.Infrastructure.SQLite;
@@ -5,6 +6,24 @@ namespace DDD.Infrastructure.SQLite;
 public static class SQLiteHelper
 {
     public const string ConnectionString = @"Data Source=/Users/shiratorinaoki/DataBase/sqlite/Udemy-DDD-Part1.db";
+
+    internal static void Execute(string sql, SqliteParameter[] parameters)
+    {
+        try
+        {
+            using (var connection = new SqliteConnection(ConnectionString))
+            using (var command = new SqliteCommand(sql, connection))
+            {
+                connection.Open();
+                command.Parameters.AddRange(parameters);
+                command.ExecuteNonQuery();
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException("データベース接続エラー", ex);
+        }
+    }
 
     internal static IReadOnlyList<T> Query<T>(string sql, Func<SqliteDataReader, T> createEntity)
     {

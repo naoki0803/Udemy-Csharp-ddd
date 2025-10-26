@@ -14,8 +14,7 @@ public static class Guard
 
     public static float IsFloat(string? text, string message)
     {
-        float floatValue;
-        if (!float.TryParse(text, out floatValue))
+        if (!float.TryParse(text, out float floatValue))
         {
             throw new InputException(message);
         }

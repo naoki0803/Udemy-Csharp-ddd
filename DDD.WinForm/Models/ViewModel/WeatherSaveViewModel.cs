@@ -27,9 +27,9 @@ public class WeatherSaveViewModel
         Initialize(weather, areas);
     }
 
-    public object? SelectedAreaId { get; set; }
+    public int? SelectedAreaId { get; set; }
     public DateTime DataDateValue { get; set; }
-    public object SelectedCondition { get; set; }
+    public int SelectedCondition { get; set; }
     public string? TemperatureTextText { get; set; }
     public string TemperatureUnitName => Temperature.UnitName;
     public IReadOnlyList<AreaEntity> Areas { get; set; }

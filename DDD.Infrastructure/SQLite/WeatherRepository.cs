@@ -44,6 +44,19 @@ public class WeatherRepository : IWeatherRepository
 
     public void Save(WeatherEntity weather)
     {
-        throw new NotImplementedException();
+        try
+        {
+            string sql = @"INSERT INTO Weather VALUES(@AreaId, @DataDate, @Condition, @Temperature)";
+            SQLiteHelper.Execute(sql, new SqliteParameter[] {
+                new SqliteParameter("@AreaId", weather.AreaId.Value),
+                new SqliteParameter("@DataDate", weather.DataDate),
+                new SqliteParameter("@Condition", weather.Condition.Value),
+                new SqliteParameter("@Temperature", weather.Temperature.Value)
+            });
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException("データベース接続エラー", ex);
+        }
     }
 }
