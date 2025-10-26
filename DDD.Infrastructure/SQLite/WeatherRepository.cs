@@ -46,8 +46,10 @@ public class WeatherRepository : IWeatherRepository
     {
         try
         {
-            string sql = @"INSERT INTO Weather VALUES(@AreaId, @DataDate, @Condition, @Temperature)";
-            SQLiteHelper.Execute(sql, new SqliteParameter[] {
+            string insert = @"INSERT INTO Weather VALUES(@AreaId, @DataDate, @Condition, @Temperature)";
+            string update = @"UPDATE Weather SET Condition = @Condition, Temperature = @Temperature WHERE AreaID = @AreaId AND DataDate = @DataDate";
+
+            SQLiteHelper.Execute(update, insert, new SqliteParameter[] {
                 new SqliteParameter("@AreaId", weather.AreaId.Value),
                 new SqliteParameter("@DataDate", weather.DataDate),
                 new SqliteParameter("@Condition", weather.Condition.Value),

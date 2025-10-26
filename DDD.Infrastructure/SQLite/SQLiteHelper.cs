@@ -7,16 +7,24 @@ public static class SQLiteHelper
 {
     public const string ConnectionString = @"Data Source=/Users/shiratorinaoki/DataBase/sqlite/Udemy-DDD-Part1.db";
 
-    internal static void Execute(string sql, SqliteParameter[] parameters)
+    internal static void Execute(string update, string insert, SqliteParameter[] parameters)
     {
         try
         {
             using (var connection = new SqliteConnection(ConnectionString))
-            using (var command = new SqliteCommand(sql, connection))
+            using (var command = new SqliteCommand(update, connection))
             {
                 connection.Open();
-                command.Parameters.AddRange(parameters);
-                command.ExecuteNonQuery();
+                if (parameters != null)
+                {
+                    command.Parameters.AddRange(parameters);
+                }
+
+                if (command.ExecuteNonQuery() < 1)
+                {
+                    command.CommandText = insert;
+                    command.ExecuteNonQuery();
+                }
             }
         }
         catch (Exception ex)
